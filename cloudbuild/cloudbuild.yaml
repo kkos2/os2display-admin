@@ -54,20 +54,20 @@ steps:
         path: /root/.ssh
 
   - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args: ['-c', 'ls -la']
-
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args: ['-c', 'cat .BUILD_TAG']
-
-  - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
     entrypoint: 'bash'
     args: ["-c", "git tag \"$(cat ../.BUILD_TAG)\""]
 
   - name: 'gcr.io/cloud-builders/git'
-    dir: 'os2display-admin'
+      dir: 'os2display-admin'
+      entrypoint: 'bash'
+      args: ["-c", "git push \"$(cat ../.BUILD_TAG)\""]
+
+  # The Dockerfile here uses this git builder as its base image.
+  - name: 'gcr.io/cloud-builders/docker'
+    dir: 'cloudbuild'
+    entrypoint: 'bash'
     args:
-      - tag
+      - c
+      - 'docker build -t "kkos2display/admin-release:$(cat .BUILD_TAG)" --build-arg builder_image=reload/os2display-admin-php:reload-1.1.0 --build-arg revision=$(cat .BUILD_TAG) --build-arg repository="https://github.com/kkos2/os2display-admin.git" ."'
 
