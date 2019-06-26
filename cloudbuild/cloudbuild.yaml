@@ -4,7 +4,7 @@ steps:
     args:
       - kms
       - decrypt
-      - --ciphertext-file=id_rsa.enc
+      - --ciphertext-file=cloudbuild/id_rsa.enc
       - --plaintext-file=/root/.ssh/id_rsa
       - --location=global
       - --keyring=cloud-build-keyring
