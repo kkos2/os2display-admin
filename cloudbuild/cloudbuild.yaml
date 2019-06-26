@@ -59,9 +59,9 @@ steps:
     args: ["-c", "git tag \"$(cat ../.BUILD_TAG)\""]
 
   - name: 'gcr.io/cloud-builders/git'
-      dir: 'os2display-admin'
-      entrypoint: 'bash'
-      args: ["-c", "git push \"$(cat ../.BUILD_TAG)\""]
+    dir: 'os2display-admin'
+    entrypoint: 'bash'
+    args: ["-c", "git push \"$(cat ../.BUILD_TAG)\""]
 
   # The Dockerfile here uses this git builder as its base image.
   - name: 'gcr.io/cloud-builders/docker'
