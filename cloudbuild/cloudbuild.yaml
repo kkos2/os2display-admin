@@ -48,7 +48,7 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
     entrypoint: 'bash'
-    args: ["-c", 'echo "${BRANCH_NAME}-" > ../.BUILD_TAG && git rev-list --count ${BRANCH_NAME} >> ../.BUILD_TAG']
+    args: ["-c", 'git rev-list --count ${BRANCH_NAME} >> ../.BUILD_TAG']
     volumes:
       - name: 'ssh'
         path: /root/.ssh
