@@ -64,7 +64,7 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
     entrypoint: 'bash'
-    args: ["-c", "git tag \"$(cat ../.BUILD_TAG)\""]
+    args: ["-c", "git tag \"${BRANCH_NAME}-$(cat ../.BUILD_TAG)\""]
 
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
