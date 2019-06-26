@@ -1,5 +1,7 @@
-# Decrypt the file containing the key
+# Assumptions
+# - We're trigged on a branch (we're going to prefix a build-id with the name of it).
 steps:
+  # Decrypt the ssh key we need for accessing github.
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - kms
@@ -14,6 +16,7 @@ steps:
         path: /root/.ssh
 
   # Set up git with key and domain.
+  # From now on we mount the ssh-volume
   - name: 'gcr.io/cloud-builders/git'
     entrypoint: 'bash'
     args:
@@ -29,6 +32,7 @@ steps:
       - name: 'ssh'
         path: /root/.ssh
 
+  # Clone the original source-repo and get the revision we where trigged on checked out.
   - name: 'gcr.io/cloud-builders/git'
     args:
       - clone
@@ -36,7 +40,6 @@ steps:
     volumes:
       - name: 'ssh'
         path: /root/.ssh
-
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
     args:
@@ -44,14 +47,12 @@ steps:
       - --hard
       - $COMMIT_SHA
 
-  # Generate build id
+  # Generate build id by counting the number of comments leading up to the current
+  # revision, and prefixing it with the name of the branch that triggered us.
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
     entrypoint: 'bash'
     args: ["-c", "echo \"${BRANCH_NAME}-$(git rev-list --count ${COMMIT_SHA})\" > ../.BUILD_TAG"]
-    volumes:
-      - name: 'ssh'
-        path: /root/.ssh
 
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
@@ -62,6 +63,9 @@ steps:
     dir: 'os2display-admin'
     entrypoint: 'bash'
     args: ["-c", "git push origin \"$(cat ../.BUILD_TAG)\""]
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
 
   # The Dockerfile here uses this git builder as its base image.
   - name: 'gcr.io/cloud-builders/docker'
