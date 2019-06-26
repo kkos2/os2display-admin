@@ -41,7 +41,7 @@ steps:
   # Use git clone.
   - name: 'gcr.io/cloud-builders/git'
     entrypoint: 'bash'
-      args: ['-c', 'ls -l']
+    args: ['-c', 'ls -l']
     volumes:
       - name: 'ssh'
         path: /root/.ssh
