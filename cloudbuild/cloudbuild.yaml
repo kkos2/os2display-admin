@@ -49,7 +49,7 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
     entrypoint: 'bash'
-      args: ['-c', 'ls -l']
+    args: ['-c', 'ls -l']
 
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
