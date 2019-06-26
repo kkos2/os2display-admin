@@ -75,5 +75,5 @@ steps:
     entrypoint: 'bash'
     args:
       - -c
-      - 'docker build -t "kkos2display/admin-release:$(cat .BUILD_TAG)" --build-arg builder_image=reload/os2display-admin-php:reload-1.1.0 --build-arg revision=$(cat .BUILD_TAG) --build-arg repository="https://github.com/kkos2/os2display-admin.git" ."'
+      - 'docker build -t "kkos2display/admin-release:$(cat .BUILD_TAG)" --build-arg builder_image=reload/os2display-admin-php:reload-1.1.0 --build-arg revision=$(cat .BUILD_TAG) --build-arg repository="https://github.com/kkos2/os2display-admin.git" .'
 
