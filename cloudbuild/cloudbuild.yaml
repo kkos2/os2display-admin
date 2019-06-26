@@ -32,7 +32,7 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     args:
       - clone
-      - --branch=
+      - --branch=$COMMIT_SHA
       - git@github.com:kkos2/os2display-admin.git
     volumes:
       - name: 'ssh'
