@@ -29,11 +29,36 @@ steps:
       - name: 'ssh'
         path: /root/.ssh
 
-  # Use git clone.
   - name: 'gcr.io/cloud-builders/git'
     args:
       - clone
+      - --branch=
       - git@github.com:kkos2/os2display-admin.git
     volumes:
       - name: 'ssh'
         path: /root/.ssh
+
+  # Use git clone.
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+      args: ['-c', 'ls -l']
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+
+  - name: 'gcr.io/cloud-builders/git'
+    dir: 'os2display-admin'
+    entrypoint: 'bash'
+      args: ['-c', 'ls -l']
+
+  - name: 'gcr.io/cloud-builders/git'
+    dir: 'os2display-admin'
+    args:
+      - tag
+      - 'kff-build-$BUILD_ID'
+
+  - name: 'gcr.io/cloud-builders/git'
+    dir: 'os2display-admin'
+    args:
+      - tag
+
