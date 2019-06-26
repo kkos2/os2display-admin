@@ -63,9 +63,8 @@ steps:
 
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
-    args:
-      - tag
-      - 'kff-build-$(cat ../.BUILD_TAG)'
+    entrypoint: 'bash'
+    args: ["-c", "git tag \"$(cat ../.BUILD_TAG)\""]
 
   - name: 'gcr.io/cloud-builders/git'
     dir: 'os2display-admin'
