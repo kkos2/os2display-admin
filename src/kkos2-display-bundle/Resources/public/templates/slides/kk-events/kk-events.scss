@@ -7,7 +7,7 @@
 .kk-events__event {
   background-color: white;
 }
-
+//
 .kk-events__event--img--file {
   object-fit: cover;
 }
@@ -17,19 +17,62 @@
   font-weight: 900;
 }
 
-.kk-events__event {
-  display: flex;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
 .kk-events__event--body {
   margin-top: 2%;
 }
 
+.kk-events__event--text {
+  padding: 0 4%;
+  overflow: hidden;
+}
+
 .kk-events--ratio-16-9 {
+  height: 100%;
+
+  padding:8% 14% 8% 4%;
+
+  .kk-events__subslide {
+    height: 82%;
+
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-row-gap: 1em;
+
+    overflow: hidden;
+
+    &.sis-items-pr-slide-5  {
+      grid-template-rows: repeat(5, 1fr);
+    }
+  }
+  .kk-events__event {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    overflow: hidden;
+  }
+
+  .kk-events__event-img {
+    position: relative;
+    width: 100%;
+    padding-top: 62.5%; /* 8:5 Aspect Ratio */
+    &--file {
+      object-fit: cover;
+      width: 100%;
+      height:100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  .kk-events__event--text {
+    justify-self: stretch;
+  }
+
+}
+.kk-events--ratio-16-9-keep {
   // These variables are maybe a little confusing. They're an attempt to keep all
   // vh-heights together so it's easier to make a total.
   $top-bottom-margin: 8vh;
@@ -52,6 +95,16 @@
     margin-bottom: $event-margin-bottom;
     height: $event-height;
   }
+
+
+  .kk-events__event {
+    display: flex;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
 
   .kk-events__event--text {
     padding: 0 4%;
@@ -76,55 +129,53 @@
   }
 }
 
+
+
 .kk-events--ratio-9-16 {
-  $top-margin: 20vh;
-  $bottom-margin: 8vh;
-  $event-margin-bottom: 3vh;
-  $total-height-used: (($top-margin + $bottom-margin) + ($event-margin-bottom * 2));
-  // With 3 event boxes, divide 100vh minus the used height and divide by 3.
-  $event-height: (100 - $total-height-used) / 3;
-
   height: 100%;
-  width: 100%;
-  font-size: 16px;
 
-  .kk-events__event {
-    margin-bottom: 3vh;
-    height: $event-height;
-  }
+  padding:14% 14% 8% 4%;
 
   .kk-events__subslide {
-    margin: $top-margin 8vw $bottom-margin 8vw;
-  }
+    height: 84%;
 
-  .kk-events__event--text {
-    padding: 0 4%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-row-gap: 1em;
+
+    overflow: hidden;
+
+    &.sis-items-pr-slide-5  {
+      grid-template-rows: repeat(5, 1fr);
+    }
+  }
+  .kk-events__event {
+    display: grid;
+    grid-template-columns: 40% 1fr;
     overflow: hidden;
   }
 
-  .kk-events__event--img--file {
-    width: 25vw;
-    height: $event-height;
+  .kk-events__event-img {
+    position: relative;
+    width: 100%;
+    padding-top: 62.5%; /* 8:5 Aspect Ratio */
+    &--file {
+      object-fit: cover;
+      width: 100%;
+      height:100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
   }
 
-  .kk-events__event--date {
-    margin: 4% 0 6%;
-    font-size: pt2pct(13);
+  .kk-events__event--text {
+    justify-self: stretch;
   }
 
-  .kk-events__event--title {
-    font-size: pt2pct(23);
-  }
-
-  .kk-events__event--body {
-    font-size: pt2pct(18);
-  }
-
-  .kk-events--logo {
-    padding-top: 8%;
-    padding-right: 3%;
-    width: 18%;
-  }
 }
 
 .kk-events--ratio-8-9 {
@@ -133,7 +184,7 @@
   $event-margin-bottom: 3vh;
   $total-height-used: (($top-margin + $bottom-margin) + ($event-margin-bottom * 2));
   // With 3 event boxes, divide 100vh minus the used height and divide by 3.
-  $event-height: (100 - $total-height-used) / 3;
+  $event-height: (100 - $total-height-used) / 5;
 
   height: 100%;
   width: 100%;
