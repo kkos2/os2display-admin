@@ -1,18 +1,10 @@
 @import "../../../assets/scss/kff";
 
-@mixin stretchyEms($property, $min, $max) {
-  #{$property}: calc(
-    #{$min}em + (#{$max} - #{$min}) * ((100vw - 300px) / (1920 - 300))
-  );
-}
-
 .kk-events {
   color: $colors-dark-blue;
   height: 100%;
   display: grid;
   align-items: center;
-  // https://css-tricks.com/books/volume-i/scale-typography-screen-size/
-  font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1920 - 300)));
 
   &.kk-events--ratio-horizontal {
     padding-left: 4%;
@@ -23,6 +15,11 @@
     padding-left: 6%;
     padding-right: 6%;
     padding-top: 6%;
+
+    .kk-logo--top-right {
+      top: 2%;
+      width: 12%;
+    }
   }
 }
 
@@ -31,16 +28,27 @@
   grid-row-gap: 1em;
   grid-template-rows: repeat(3, 1fr);
   overflow: hidden;
-
-  &.sis-items-pr-slide-5 {
-    grid-template-rows: repeat(5, 1fr);
-  }
+  @include stretchyPx("font-size", 14, 26);
 
   .kk-events--ratio-horizontal & {
     height: 82%;
   }
+
   .kk-events--ratio-vertical & {
+    @include stretchyPx("font-size", 14, 64);
     height: 84%;
+  }
+
+  &.sis-items-pr-slide-5 {
+    grid-template-rows: repeat(5, 1fr);
+
+    .kk-events--ratio-horizontal & {
+      @include stretchyPx("font-size", 14, 20);
+    }
+
+    .kk-events--ratio-vertical & {
+      @include stretchyPx("font-size", 14, 48);
+    }
   }
 }
 
@@ -57,6 +65,7 @@
   width: 100%;
 }
 
+// This is the wrapper around date, title, and teaser text.
 .kk-events__event--text {
   @include stretchyEms("line-height", 1.5, 1.8);
   overflow: hidden;
@@ -75,11 +84,22 @@
 .kk-events__event--title {
   font-size: 1.1em;
   margin-top: 0.5em;
+
+  .kk-events--ratio-vertical & {
+    @include stretchyEms("line-height", 1, 1.2);
+  }
+  .kk-events--ratio-vertical .sis-items-pr-slide-5 & {
+    margin-top: 0.2em;
+  }
 }
 
 .kk-events__event--description {
   font-size: 0.9em;
   @include stretchyEms("line-height", 1.2, 1.5);
+
+  .kk-events--ratio-vertical .sis-items-pr-slide-5 & {
+    margin-top: 0.3em;
+  }
 }
 
 .kk-events--ratio-8-9 {
