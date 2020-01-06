@@ -10,7 +10,7 @@ if (!window.kkSlideRatio.getRatio) {
     const height = window.innerHeight|| document.documentElement.clientHeight||
       document.body.clientHeight;
 
-    let ratio = (height > width) ? '9-16' : '16-9';
+    let ratio = (height > width) ? 'vertical' : 'horizontal';
     if (document.querySelectorAll('.half-split').length > 0) {
       ratio = '8-9';
     } else if (document.querySelectorAll('.two-rows-portrait').length > 0) {
