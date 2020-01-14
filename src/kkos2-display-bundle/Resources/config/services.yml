@@ -6,6 +6,10 @@ services:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\MultisiteHelper:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\DataFetcher:
 
+  Kkos2\KkOs2DisplayIntegrationBundle\Cron\BookByenSisCron:
+    tags:
+      - { name: kernel.event_subscriber }
+
   kkos2.subscriber.colorfulMessageSisCron:
     class: Kkos2\KkOs2DisplayIntegrationBundle\Cron\ColorfulMessageSisCron
     tags:

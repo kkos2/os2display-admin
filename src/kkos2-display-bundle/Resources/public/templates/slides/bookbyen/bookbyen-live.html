@@ -1,0 +1,80 @@
+<div lang="da-DK" class="bookbyen kk-ratio-{{ratio}} kk-slide-body font-kbh">
+  <header
+    class="bookbyen-top"
+    data-ng-style="{'background-color': ikSlide.options.bgcolor}"
+  >
+    <div class="bookbyen-top__date">
+      Torsdag. 11. marts
+    </div>
+    <div class="bookbyen-top__place">
+      Københavnerhallen
+    </div>
+    <div class="bookbyen-top__logo">
+      <img
+        class="bookbyen-top__logo"
+        data-ng-src="{{ikSlide.kffLogo}}"
+        alt="Logo"
+      />
+    </div>
+  </header>
+
+  <div
+    class="bookbyen__subslide"
+    data-ng-style="{'background-color': background_color}"
+    ng-repeat="subslide in ikSlide.data.subslides track by $index"
+    data-ng-show="ikSlide.data.currentSlide === $index"
+  >
+    <table class="bookbyen-bookings" ng-repeat="row in subslide">
+      <tr
+        ng-if="$first"
+        class="bookbyen-bookings__head"
+        data-ng-style="{'background-color': ikSlide.options.bgcolor}"
+      >
+        <th ng-if="useField.time">Tid</th>
+        <th ng-if="useField.username">Brugernavn</th>
+        <th ng-if="useField.facility">Facilitet</th>
+        <th ng-if="useField.activity">Aktivitet</th>
+        <th ng-if="useField.note">Note</th>
+        <th ng-if="useField.team">Hold</th>
+        <th ng-if="useField.teamleaders">Holdleder</th>
+      </tr>
+      <tr class="bookbyen-bookings__body">
+        <td ng-if="useField.time">{{row.time}}</td>
+        <td ng-if="useField.username">{{row.username}}</td>
+        <td ng-if="useField.facility">{{row.facility}}</td>
+        <td ng-if="useField.activity">{{row.activity}}</td>
+        <td ng-if="useField.note">{{row.note}}</td>
+        <td ng-if="useField.team">{{row.team}}</td>
+        <td ng-if="useField.teamleaders">{{row.teamleaders}}</td>
+      </tr>
+
+      <!--      <div ng-if="$first" class="bookbyen-titles">-->
+      <!--        <div ng-if="useField.time" class="bookbyen__time">-->
+      <!--          Tid-->
+      <!--        </div>-->
+      <!--        <div ng-if="useField.team" class="bookbyen__team">-->
+      <!--          Team-->
+      <!--        </div>-->
+      <!--      </div>-->
+
+      <!--      <div ng-if="useField.time" class="bookbyen__time">-->
+      <!--        {{row.tid}}-->
+      <!--      </div>-->
+      <!--      <div ng-if="useField.username" class="bookbyen__username">-->
+      <!--        {{row.brugernavn}}-->
+      <!--      </div>-->
+      <!--      <div ng-if="useField.facility" class="bookbyen__facility">-->
+      <!--        {{row.facilitet}}-->
+      <!--      </div>-->
+      <!--      <div ng-if="useField.note" class="bookbyen__note">-->
+      <!--        {{row.note_arrangement}}-->
+      <!--      </div>-->
+      <!--      <div ng-if="useField.team" class="bookbyen__team">-->
+      <!--        {{row.hold}}-->
+      <!--      </div>-->
+      <!--      <div ng-if="useField.teamleaders" class="bookbyen__teamleaders">-->
+      <!--        {{row.holdleder_team}}-->
+      <!--      </div>-->
+    </table>
+  </div>
+</div>

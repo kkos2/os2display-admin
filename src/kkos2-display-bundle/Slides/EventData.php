@@ -51,7 +51,7 @@ class EventData
 
     // The feeds are just not consistent from the source, so try to get a place
     // from another key.
-    if (empty($events['field_display_institution'])) {
+    if (empty($events['field_display_institution']) ) {
       $events['place'] = $data['place-name'];
     }
     return array_map('trim', $events);
