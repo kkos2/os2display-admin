@@ -5,24 +5,25 @@ services:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\MultisiteCrawler:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\MultisiteHelper:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\DataFetcher:
+  Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\EventfeedHelper:
+
+  # Cron
+  Kkos2\KkOs2DisplayIntegrationBundle\Cron\EventsSisCron:
+    tags:
+      - { name: kernel.event_subscriber }
+
+  Kkos2\KkOs2DisplayIntegrationBundle\Cron\ColorfulMessageSisCron:
+    tags:
+      - { name: kernel.event_subscriber }
+
+  Kkos2\KkOs2DisplayIntegrationBundle\Cron\EventplakatSisCron:
+    tags:
+      - { name: kernel.event_subscriber }
+
+  Kkos2\KkOs2DisplayIntegrationBundle\Cron\CarouselSisCron:
+    tags:
+      - { name: kernel.event_subscriber }
 
   Kkos2\KkOs2DisplayIntegrationBundle\Cron\BookByenSisCron:
-    tags:
-      - { name: kernel.event_subscriber }
-
-  kkos2.subscriber.colorfulMessageSisCron:
-    class: Kkos2\KkOs2DisplayIntegrationBundle\Cron\ColorfulMessageSisCron
-    tags:
-      - { name: kernel.event_subscriber }
-  kkos2.subscriber.eventplakatSisCron:
-    class: Kkos2\KkOs2DisplayIntegrationBundle\Cron\EventplakatSisCron
-    tags:
-      - { name: kernel.event_subscriber }
-  kkos2.subscriber.eventsSisCron:
-    class: Kkos2\KkOs2DisplayIntegrationBundle\Cron\EventsSisCron
-    tags:
-      - { name: kernel.event_subscriber }
-  kkos2.subscriber.CarouselSisCron:
-    class: Kkos2\KkOs2DisplayIntegrationBundle\Cron\CarouselSisCron
     tags:
       - { name: kernel.event_subscriber }
