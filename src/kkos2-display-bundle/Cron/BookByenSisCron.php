@@ -2,10 +2,13 @@
 
 namespace Kkos2\KkOs2DisplayIntegrationBundle\Cron;
 
+use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
+use Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\BookbyenApiHelper;
 use Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\DataFetcher;
 use Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\MultisiteCrawler;
 use Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\MultisiteHelper;
+use Kkos2\KkOs2DisplayIntegrationBundle\Slides\DateTrait;
 use Psr\Log\LoggerInterface;
 use Reload\Os2DisplaySlideTools\Events\SlidesInSlideEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,24 +20,26 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class BookByenSisCron implements EventSubscriberInterface {
 
+  use DateTrait;
+
   /**
    * @var \Symfony\Bridge\Monolog\Logger $logger
    */
   private $logger;
 
   /**
-   * @var \Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\DataFetcher
+   * @var \Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\BookbyenApiHelper
    */
-  private $fetcher;
+  private $apiHelper;
 
   /**
    * BookByenSisCron constructor.
    *
-   * @param \Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\DataFetcher $fetcher
+   * @param \Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\BookbyenApiHelper $apiHelper
    * @param \Psr\Log\LoggerInterface $logger
    */
-  public function __construct(DataFetcher $fetcher, LoggerInterface $logger) {
-    $this->fetcher = $fetcher;
+  public function __construct(LoggerInterface $logger, BookbyenApiHelper $apiHelper) {
+    $this->apiHelper = $apiHelper;
     $this->logger = $logger;
   }
 
@@ -56,22 +61,53 @@ class BookByenSisCron implements EventSubscriberInterface {
    */
   public function getSlideData(SlidesInSlideEvent $event) {
     $slide = $event->getSlidesInSlide();
-    // Enforce only one slide pr. subslide.
-    $slide->setOption('sis_items_pr_slide', 1);
-    $url = $slide->getOption('datafeed_url', '');
-    $numItems = $slide->getOption('sis_total_items', 12);
+    $bookByenOptions = $slide->getOption('bookbyen', []);
 
-    // Note that the names of the fields here should match the fields in useFIelds. TODO.
-    $dummy = array_fill(0, 12, [
-      'time' => '10:00 - 11:00',
-      'username' => 'Jens Jensen',
-      'facility' => 'Badminton Bane 2',
-      'activity' => 'Badminton',
-      'note' => 'Inges pensionisthold',
-      'team' => 'Begynder',
-      'teamleaders' => 'holdleder/team',
-    ]);
-    $slide->setSubslides([$dummy, $dummy]);
+    $url = $bookByenOptions['api_url'];
+    $data = $this->apiHelper->fetchData($url);
+
+    $bookings = [];
+
+    if (!empty($data)) {
+      $slide->setOption('place', $this->apiHelper->getPlaceName($data));
+      $date = new DateTime();
+      $today = $this->getDayName($date) . ', ' . $date->format('j') . '. ' . $this->getMonthName($date);
+      $slide->setOption('todaysDate', $today);
+
+      if (!empty(array_filter($bookByenOptions['filtering']))) {
+        $data = $this->apiHelper->filter($data, $bookByenOptions['filtering']);
+      }
+
+      $fields = array_filter($bookByenOptions['useFields']);
+
+      foreach ($data as $item) {
+        $processed = $this->processData($item);
+        if (!empty($item)) {
+          $bookings[] = array_intersect_key($processed, $fields);
+        }
+      }
+    }
+    $bookings = array_slice($bookings, 0, $slide->getOption('sis_total_items', 12));
+
+    $slide->setSubslides($bookings);
   }
+
+  private function processData($data) {
+    $time = $this->apiHelper->processTime($data['start'], $data['end']);
+    if (empty($time)) {
+      // We can't not have a time.
+      return [];
+    }
+    $booking['time'] = $time;
+    $booking['username'] = empty($data['user']['name']) ? '' : $data['user']['name'];
+    $booking['facility'] = empty($data['facility']['name']) ? '' : $data['facility']['name'];
+    $booking['activity'] = empty($data['activity']['name']) ? '' : $data['activity']['name'];
+    $booking['note'] = empty($data['infoscreenNote']) ? '' : $data['infoscreenNote'];
+    $booking['team'] = empty($data['team']['name']) ? '' : $data['team']['name'];
+    $booking['teamleaders'] = empty($data['team']['teamleaders']) ? '' : $data['team']['teamleaders'];
+
+    return array_map('trim', $booking);
+  }
+
 
 }

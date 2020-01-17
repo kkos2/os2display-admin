@@ -4,10 +4,10 @@
     data-ng-style="{'background-color': ikSlide.options.bgcolor}"
   >
     <div class="bookbyen-top__date">
-      Torsdag. 11. marts
+      {{ ikSlide.options.todaysDate }}
     </div>
     <div class="bookbyen-top__place">
-      Københavnerhallen
+      {{ ikSlide.options.place }}
     </div>
     <div class="bookbyen-top__logo">
       <img
@@ -20,61 +20,47 @@
 
   <div
     class="bookbyen__subslide"
-    data-ng-style="{'background-color': background_color}"
     ng-repeat="subslide in ikSlide.data.subslides track by $index"
     data-ng-show="ikSlide.data.currentSlide === $index"
   >
+    <div class="bookbyen__divider">
+      <div ng-if="totalSubslides" class="bookbyen__pager" data-ng-style="{'color': ikSlide.options.bgcolor}">
+        {{$index}} af {{totalSubslides}}
+      </div>
+    </div>
     <table class="bookbyen-bookings" ng-repeat="row in subslide">
-      <tr
-        ng-if="$first"
-        class="bookbyen-bookings__head"
-        data-ng-style="{'background-color': ikSlide.options.bgcolor}"
-      >
-        <th ng-if="useField.time">Tid</th>
-        <th ng-if="useField.username">Brugernavn</th>
-        <th ng-if="useField.facility">Facilitet</th>
-        <th ng-if="useField.activity">Aktivitet</th>
-        <th ng-if="useField.note">Note</th>
-        <th ng-if="useField.team">Hold</th>
-        <th ng-if="useField.teamleaders">Holdleder</th>
-      </tr>
-      <tr class="bookbyen-bookings__body">
-        <td ng-if="useField.time">{{row.time}}</td>
-        <td ng-if="useField.username">{{row.username}}</td>
-        <td ng-if="useField.facility">{{row.facility}}</td>
-        <td ng-if="useField.activity">{{row.activity}}</td>
-        <td ng-if="useField.note">{{row.note}}</td>
-        <td ng-if="useField.team">{{row.team}}</td>
-        <td ng-if="useField.teamleaders">{{row.teamleaders}}</td>
-      </tr>
-
-      <!--      <div ng-if="$first" class="bookbyen-titles">-->
-      <!--        <div ng-if="useField.time" class="bookbyen__time">-->
-      <!--          Tid-->
-      <!--        </div>-->
-      <!--        <div ng-if="useField.team" class="bookbyen__team">-->
-      <!--          Team-->
-      <!--        </div>-->
-      <!--      </div>-->
-
-      <!--      <div ng-if="useField.time" class="bookbyen__time">-->
-      <!--        {{row.tid}}-->
-      <!--      </div>-->
-      <!--      <div ng-if="useField.username" class="bookbyen__username">-->
-      <!--        {{row.brugernavn}}-->
-      <!--      </div>-->
-      <!--      <div ng-if="useField.facility" class="bookbyen__facility">-->
-      <!--        {{row.facilitet}}-->
-      <!--      </div>-->
-      <!--      <div ng-if="useField.note" class="bookbyen__note">-->
-      <!--        {{row.note_arrangement}}-->
-      <!--      </div>-->
-      <!--      <div ng-if="useField.team" class="bookbyen__team">-->
-      <!--        {{row.hold}}-->
-      <!--      </div>-->
-      <!--      <div ng-if="useField.teamleaders" class="bookbyen__teamleaders">-->
-      <!--        {{row.holdleder_team}}-->
-      <!--      </div>-->
+      <thead>
+        <tr
+          ng-if="$first"
+          class="bookbyen-bookings__head"
+          data-ng-style="{'background-color': ikSlide.options.bgcolor}"
+        >
+          <th ng-if="useFields.time" class="bookbyen-bookings__time">Tid</th>
+          <th ng-if="useFields.username" class="bookbyen-bookings__username">
+            Brugernavn
+          </th>
+          <th ng-if="useFields.facility">Facilitet</th>
+          <th ng-if="useFields.activity">Aktivitet</th>
+          <th ng-if="useFields.note">Note</th>
+          <th ng-if="useFields.team">Hold</th>
+          <th ng-if="useFields.teamleaders">Holdleder</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-class="{'is-odd': $odd, 'bookbyen-bookings__body': true}">
+          <td ng-if="useFields.time" class="bookbyen-bookings__time">
+            {{row.time}}
+          </td>
+          <td ng-if="useFields.username">
+            {{row.username}}
+          </td>
+          <td ng-if="useFields.facility">{{row.facility}}</td>
+          <td ng-if="useFields.activity">{{row.activity}}</td>
+          <td ng-if="useFields.note">{{row.note}}</td>
+          <td ng-if="useFields.team">{{row.team}}</td>
+          <td ng-if="useFields.teamleaders">{{row.teamleaders}}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>

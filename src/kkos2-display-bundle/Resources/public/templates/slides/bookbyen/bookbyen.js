@@ -24,10 +24,9 @@ if (!window.slideFunctions["bookbyen"]) {
         slide_duration
       );
 
-      scope.useField = slide.options.useFields;
-
+      scope.totalSubslides = num_subslides;
+      scope.useFields = slide.options.bookbyen.useFields;
       scope.ikSlide.kffLogo = slide.server_path + "/bundles/kkos2displayintegration/assets/img/kbh-logo.png";
-
       scope.ratio = window.kkSlideRatio.getRatio();
 
     },

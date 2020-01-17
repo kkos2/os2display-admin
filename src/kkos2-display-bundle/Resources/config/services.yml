@@ -6,6 +6,7 @@ services:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\MultisiteHelper:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\DataFetcher:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\EventfeedHelper:
+  Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\BookbyenApiHelper:
 
   # Cron
   Kkos2\KkOs2DisplayIntegrationBundle\Cron\EventsSisCron:

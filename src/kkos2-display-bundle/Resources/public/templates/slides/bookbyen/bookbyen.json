@@ -32,26 +32,37 @@
     "sis_cron_subscriber": "kk_bookbyen_sis_cron",
     "sis_subslide_duration": 10,
     "sis_total_items": 12,
-    "sis_items_pr_slide": 1,
+    "sis_items_pr_slide": 12,
 
-    "useFields": {
-      "time": true,
-      "username": false,
-      "facility": false,
-      "activity": false,
-      "note": false,
-      "team": false,
-      "teamleaders": false
+    "bookbyen": {
+      "api_url": "",
+      "filtering": {
+        "area":  "",
+        "facility": ""
+      },
+      "useFields": {
+        "time": true,
+        "username": false,
+        "facility": false,
+        "activity": false,
+        "note": false,
+        "team": false,
+        "teamleaders": false
+      }
     }
   },
   "tools": [
     {
-      "name": "Baggrundsfarve",
-      "id": "bg-color-editor"
+      "name": "Book Byen",
+      "id": "bookbyen-editor"
     },
     {
-      "name": "Book Byen felter",
-      "id": "bookbyen-editor"
+      "name": "Slides in slides",
+      "id": "slides-in-slide-config-editor"
+    },
+    {
+      "name": "Baggrundsfarve",
+      "id": "bg-color-editor"
     }
   ]
 }
