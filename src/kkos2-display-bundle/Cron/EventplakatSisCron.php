@@ -64,25 +64,27 @@ class EventplakatSisCron implements EventSubscriberInterface {
       'startdate',
       'title',
       'field_teaser',
-      'image',
+      'field_image',
       'time',
-      'field_os2display_free_text_event',
     ];
 
     if (!$this->eventfeedHelper->hasRequiredFields($expectedFields, $data)) {
       return [];
     }
 
-    $events = [
+    $event = [
       'title' => html_entity_decode($data['title']),
       'body' => html_entity_decode($data['field_teaser']),
-      'image' => $this->eventfeedHelper->processImage($data['image']),
+      'image' => $this->eventfeedHelper->processImage($data['field_image']),
       'date' => $this->eventfeedHelper->processDate($data['startdate']),
       'time' => current($data['time']),
-      'place' => $data['field_os2display_free_text_event'],
     ];
 
-    return array_map('trim', $events);
+    if (!empty($data['field_os2display_free_text_event'])) {
+      $event['free_text'] = $data['field_os2display_free_text_event'];
+    }
+
+    return array_map('trim', $event);
   }
 
 }

@@ -47,6 +47,15 @@ class EventsSisCron implements EventSubscriberInterface {
     $data = $this->eventfeedHelper->fetchData($url, $numItems, $query);
 
     $events = array_map([$this, 'processEvents'], $data);
+
+    // TODO. Should filter from/on more item because the fetcher cuts the items. Rewrite that.
+    // Also get the place on the events from "field_os2display_institution" or whatever that field
+    // is called on the day.
+    $filterOnPlace = $slide->getOption('datafeed_filter_place', false);
+    if ($filterOnPlace) {
+      $events = $this->filterOnPlace($events, $filterOnPlace);
+    }
+
     $slide->setSubslides($events);
   }
 
@@ -55,7 +64,7 @@ class EventsSisCron implements EventSubscriberInterface {
       'startdate',
       'title',
       'field_teaser',
-      'image',
+      'field_image',
       'time',
     ];
 
@@ -63,15 +72,37 @@ class EventsSisCron implements EventSubscriberInterface {
       return [];
     }
 
-    $events = [
+    $event = [
       'title' => html_entity_decode($data['title']),
       'body' => html_entity_decode($data['field_teaser']),
-      'image' => $this->eventfeedHelper->processImage($data['image']),
+      'image' => $this->eventfeedHelper->processImage($data['field_image']),
       'date' => $this->eventfeedHelper->processDate($data['startdate']),
       'time' => current($data['time']),
     ];
+    if (!empty($data['field_os2display_free_text_event'])) {
+      $event['free_text'] = $data['field_os2display_free_text_event'];
+    }
 
-    return array_map('trim', $events);
+    return array_map('trim', $event);
+  }
+
+  /**
+   * This is filtering that should have taken place on the feeds end, but we
+   * have to do it here.
+   *
+   * @param array $events
+   *   Events to filter.
+   * @param $placeName
+   *   The name of the place we want the events for.
+   *
+   * @return array
+   */
+  private function filterOnPlace($events, $placeName) {
+    $filtered = array_filter($events, function($item) use ($placeName) {
+      return !empty($item['place']) && ($item['place'] == $placeName);
+    });
+    // Return array values to make sure the array is keyed sequentially.
+    return array_values($filtered);
   }
 
 }
