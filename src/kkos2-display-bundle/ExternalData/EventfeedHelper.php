@@ -5,6 +5,7 @@ namespace Kkos2\KkOs2DisplayIntegrationBundle\ExternalData;
 use DateTime;
 use Kkos2\KkOs2DisplayIntegrationBundle\Slides\DateTrait;
 use Psr\Log\LoggerInterface;
+use Reload\Os2DisplaySlideTools\Slides\SlidesInSlide;
 
 /**
  * Class EventfeedHelper
@@ -42,15 +43,12 @@ class EventfeedHelper {
    *
    * @return array|mixed
    */
-  public function fetchData($url, $numItems, $queryData) {
-    $data = [];
-    try {
-      $fetched = JsonFetcher::fetch($url, $queryData);
-      $data = array_slice($fetched, 0, $numItems);
-    } catch (\Exception $e) {
-      $this->logger->error("There was a problem fetching data from event feed with this url: $url Error message: " . $e->getMessage());
-    }
-    return $data;
+  public function fetchData($url, $queryData) {
+    return JsonFetcher::fetch($url, $queryData);
+  }
+
+  public function validateFeedUrl($url, $type) {
+    return true === preg_match("@{$type}[?#]?@", $type);
   }
 
   /**

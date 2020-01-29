@@ -43,8 +43,13 @@ class EventplakatSisCron implements EventSubscriberInterface {
     // for the user, but the plakat slides don't support more than one, so
     // enforce it here.
     $slide->setOption('sis_items_pr_slide', 1);
-    $numItems = $slide->getOption('sis_total_items', 12);
+
     $url = $slide->getOption('datafeed_url', '');
+
+    if (!$this->eventfeedHelper->validateFeedUrl($url, 'os2display-posters')) {
+      // Freak out!
+    }
+
     $query = [];
     $filterDisplay = $slide->getOption('datafeed_display', '');
     if (!empty($filterDisplay)) {
@@ -53,9 +58,10 @@ class EventplakatSisCron implements EventSubscriberInterface {
       ];
     }
 
-    $data = $this->eventfeedHelper->fetchData($url, $numItems, $query);
-    $events = array_map([$this, 'processEvents'], $data);
+    $data = $this->eventfeedHelper->fetchData($url, $query);
+    $data = array_slice($data, 0,  $slide->getOption('sis_total_items', 12));
 
+    $events = array_map([$this, 'processEvents'], $data);
     $slide->setSubslides($events);
   }
 
@@ -64,7 +70,7 @@ class EventplakatSisCron implements EventSubscriberInterface {
       'startdate',
       'title',
       'field_teaser',
-      'field_image',
+      'image',
       'time',
     ];
 
@@ -75,7 +81,7 @@ class EventplakatSisCron implements EventSubscriberInterface {
     $event = [
       'title' => html_entity_decode($data['title']),
       'body' => html_entity_decode($data['field_teaser']),
-      'image' => $this->eventfeedHelper->processImage($data['field_image']),
+      'image' => $this->eventfeedHelper->processImage($data['image']),
       'date' => $this->eventfeedHelper->processDate($data['startdate']),
       'time' => current($data['time']),
     ];
