@@ -44,24 +44,21 @@ class EventplakatSisCron implements EventSubscriberInterface {
     // enforce it here.
     $slide->setOption('sis_items_pr_slide', 1);
 
-    $url = $slide->getOption('datafeed_url', '');
+    // Clear errors before run.
+    $slide->setOption('datafeed_error', '');
 
-    if (!$this->eventfeedHelper->validateFeedUrl($url, 'os2display-posters')) {
-      // Freak out!
+    $events = [];
+    try {
+      $this->eventfeedHelper->setSlide($slide, 'kk-eventplakat');
+      $data = $this->eventfeedHelper->fetchData();
+
+      $data = $this->eventfeedHelper->sliceData($data);
+      $events = array_map([$this, 'processEvents'], $data);
+
+    } catch (\Exception $e) {
+      $slide->setOption('datafeed_error', $e->getMessage());
     }
 
-    $query = [];
-    $filterDisplay = $slide->getOption('datafeed_display', '');
-    if (!empty($filterDisplay)) {
-      $query = [
-        'display' => $filterDisplay,
-      ];
-    }
-
-    $data = $this->eventfeedHelper->fetchData($url, $query);
-    $data = array_slice($data, 0,  $slide->getOption('sis_total_items', 12));
-
-    $events = array_map([$this, 'processEvents'], $data);
     $slide->setSubslides($events);
   }
 
@@ -74,8 +71,9 @@ class EventplakatSisCron implements EventSubscriberInterface {
       'time',
     ];
 
-    if (!$this->eventfeedHelper->hasRequiredFields($expectedFields, $data)) {
-      return [];
+    $missingFields = $this->eventfeedHelper->getMissingFieldKeys($expectedFields, $data);
+    if (!empty($missingFields)) {
+      throw new \Exception('There were missing fields in feed: ' . $missingFields);
     }
 
     $event = [

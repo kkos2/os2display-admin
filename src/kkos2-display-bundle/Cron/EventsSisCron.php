@@ -35,39 +35,26 @@ class EventsSisCron implements EventSubscriberInterface {
   // TODO. datafeed_ttl_minutes
   public function getSlideData(SlidesInSlideEvent $event) {
     $slide = $event->getSlidesInSlide();
-    $url = $slide->getOption('datafeed_url', '');
+    // Clear errors before run.
+    $slide->setOption('datafeed_error', '');
 
-    $data_errors = [];
-
-    if (!$this->eventfeedHelper->validateFeedUrl($url, 'os2display-events')) {
-      $data_errors['invalid_feed_url'] = true;
-      $slide->setOption('data_errors', $data_errors);
-      $slide->setSubslides([]);
-      return;
-    }
-
-    $query = [];
-    $filterDisplay = $slide->getOption('datafeed_display', '');
-    if (!empty($filterDisplay)) {
-      $query = [
-        'display' => $filterDisplay,
-      ];
-    }
-
+    $events = [];
     try {
-      $data = $this->eventfeedHelper->fetchData($url, $query);
+      $this->eventfeedHelper->setSlide($slide, 'kk-events');
+      $data = $this->eventfeedHelper->fetchData();
+
+      $filterOnPlace = $slide->getOption('datafeed_filter_place', FALSE);
+      if ($filterOnPlace) {
+        $data = $this->filterOnPlace($data, $filterOnPlace);
+      }
+
+      $data = $this->eventfeedHelper->sliceData($data);
+      $events = array_map([$this, 'processEvents'], $data);
+
     } catch (\Exception $e) {
-
+      $slide->setOption('datafeed_error', $e->getMessage());
     }
 
-    $filterOnPlace = $slide->getOption('datafeed_filter_place', false);
-    if ($filterOnPlace) {
-      $data = $this->filterOnPlace($data, $filterOnPlace);
-    }
-
-    $data = array_slice($data, 0,  $slide->getOption('sis_total_items', 12));
-
-    $events = array_map([$this, 'processEvents'], $data);
     $slide->setSubslides($events);
   }
 
@@ -80,8 +67,9 @@ class EventsSisCron implements EventSubscriberInterface {
       'time',
     ];
 
-    if (!$this->eventfeedHelper->hasRequiredFields($expectedFields, $data)) {
-      return [];
+    $missingFields = $this->eventfeedHelper->getMissingFieldKeys($expectedFields, $data);
+    if (!empty($missingFields)) {
+      throw new \Exception('There were missing fields in feed: ' . $missingFields);
     }
 
     $event = [
@@ -110,7 +98,7 @@ class EventsSisCron implements EventSubscriberInterface {
    * @return array
    */
   public function filterOnPlace($data, $placeName) {
-    $filtered = array_filter($data, function($item) use ($placeName) {
+    $filtered = array_filter($data, function ($item) use ($placeName) {
       return !empty($item['field_display_institution']) && ($item['field_display_institution'] == $placeName);
     });
     // Return array values to make sure the array is keyed sequentially.

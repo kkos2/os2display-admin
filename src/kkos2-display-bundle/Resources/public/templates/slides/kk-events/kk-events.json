@@ -36,7 +36,8 @@
 
     "datafeed_url": "",
     "datafeed_filter_place": "",
-    "datafeed_ttl_minutes": 5
+    "datafeed_ttl_minutes": 5,
+    "datafeed_error": ""
 
   },
   "tools": [
