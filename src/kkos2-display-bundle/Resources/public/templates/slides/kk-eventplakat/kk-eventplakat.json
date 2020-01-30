@@ -35,8 +35,8 @@
     "sis_items_pr_slide": 1,
 
     "datafeed_url": "",
-    "datafeed_error": "",
-    "datafeed_ttl_minutes": 5
+
+    "cronfetch_error": ""
 
   },
   "tools": [

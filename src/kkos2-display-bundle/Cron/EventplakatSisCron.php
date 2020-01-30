@@ -45,7 +45,7 @@ class EventplakatSisCron implements EventSubscriberInterface {
     $slide->setOption('sis_items_pr_slide', 1);
 
     // Clear errors before run.
-    $slide->setOption('datafeed_error', '');
+    $slide->setOption('cronfetch_error', '');
 
     $events = [];
     try {
@@ -56,7 +56,7 @@ class EventplakatSisCron implements EventSubscriberInterface {
       $events = array_map([$this, 'processEvents'], $data);
 
     } catch (\Exception $e) {
-      $slide->setOption('datafeed_error', $e->getMessage());
+      $slide->setOption('cronfetch_error', $e->getMessage());
     }
 
     $slide->setSubslides($events);

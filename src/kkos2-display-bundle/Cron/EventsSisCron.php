@@ -36,7 +36,7 @@ class EventsSisCron implements EventSubscriberInterface {
   public function getSlideData(SlidesInSlideEvent $event) {
     $slide = $event->getSlidesInSlide();
     // Clear errors before run.
-    $slide->setOption('datafeed_error', '');
+    $slide->setOption('cronfetch_error', '');
 
     $events = [];
     try {
@@ -52,7 +52,7 @@ class EventsSisCron implements EventSubscriberInterface {
       $events = array_map([$this, 'processEvents'], $data);
 
     } catch (\Exception $e) {
-      $slide->setOption('datafeed_error', $e->getMessage());
+      $slide->setOption('cronfetch_error', $e->getMessage());
     }
 
     $slide->setSubslides($events);
