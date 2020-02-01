@@ -97,7 +97,8 @@ class ColorfulMessageSisCron implements EventSubscriberInterface {
 
   private function fetchData(SlidesInSlide $slide ) {
     $url = $slide->getOption('datafeed_url', '');
-    if (!preg_match("@servicespot-feed[?#]?@", $url)) {
+    $host = parse_url($url, PHP_URL_HOST);
+    if ($host !== 'admin-nginx' && !preg_match("@servicespot-feed[?#]?@", $url)) {
       throw new \Exception("$url is not a valid servicespot feed url.");
     }
     $query = [];

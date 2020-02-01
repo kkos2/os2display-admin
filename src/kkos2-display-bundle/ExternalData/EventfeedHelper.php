@@ -79,6 +79,12 @@ class EventfeedHelper {
   }
 
   private function validateFeedUrl() {
+    $url = $this->slide->getOption('datafeed_url');
+    $host = parse_url($url, PHP_URL_HOST);
+    if ($host === 'admin-nginx') {
+      return TRUE;
+    }
+
     $endsWith = '';
     switch ($this->slideType) {
       case 'kk-events':
@@ -91,7 +97,7 @@ class EventfeedHelper {
     if (empty($endsWith)) {
       return FALSE;
     }
-    return preg_match("@{$endsWith}[?#]?@", $this->slide->getOption('datafeed_url'));
+    return preg_match("@{$endsWith}[?#]?@", $url);
   }
 
   /**

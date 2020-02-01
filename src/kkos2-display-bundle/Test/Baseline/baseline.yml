@@ -1,0 +1,46 @@
+slides:
+  servicespot:
+    title: 'Baseline: Servicespot'
+    type: 'kk-color-messages'
+    options:
+      datafeed_url: 'http://admin-nginx/bundles/kkos2displayintegration/test/servicespot-feed.json'
+
+  plakat:
+    title: 'Baseline: Plakat'
+    type: 'kk-eventplakat'
+    options:
+      datafeed_url: 'http://admin-nginx/bundles/kkos2displayintegration/test/event-feed.json'
+
+  arrangementer:
+    title: 'Baseline: Arrangementer'
+    type: 'kk-events'
+    options:
+      datafeed_url: 'http://admin-nginx/bundles/kkos2displayintegration/test/event-feed.json'
+
+  carousel:
+    title: 'Baseline: Karrussel'
+    type: 'kk-carousel'
+    options:
+      datafeed_url: 'http://admin-nginx/bundles/kkos2displayintegration/test/carousel.html'
+
+  twothree:
+    title: 'Baseline: 23 video fra API'
+    type: 'twothreevideo'
+    options:
+      twothreevideo:
+        album_id: 4243782
+
+#channels:
+#  c1-article:
+#    slides:
+#      - article
+#    title: 'Articles'
+#    public_url: 'c1'
+#
+#screens:
+#  - article-s1:
+#      title: 'Articles - full screen'
+#      template: 'full-screen'
+#      public_url: 's1'
+#      channels:
+#        0: 'article-c1'

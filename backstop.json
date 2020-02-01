@@ -2,142 +2,160 @@
   "id": "backstop_default",
   "viewports": [
     {
-      "label": "horizontal",
+      "label": "landscape",
       "width": 1920,
       "height": 1080
-    },
-    {
-      "label": "vertical",
-      "width": 1080,
-      "height": 1920
     }
   ],
   "scenarios": [
     {
-      "label": "Arrangementsslide - 5 slides",
-      "url": "https://admin.kff-os2display.docker/screen/public/80555d52",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": ".sis-items-pr-slide-5",
-      "delay": 2000,
-      "hideSelectors": [],
+      "label": "Servicespot - full screen",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-servicespot-fs",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
       "removeSelectors": [".sf-toolbar"],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
+      "viewports": [
+        {
+          "label": "landscape",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "label": "portrait",
+          "width": 1080,
+          "height": 1920
+        }
+      ]
     },
     {
-      "label": "Arrangementsslide - 3 slides",
-      "url": "https://admin.kff-os2display.docker/screen/public/14ebccee",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": ".sis-items-pr-slide-3",
-      "delay": 2000,
-      "hideSelectors": [],
-      "removeSelectors": [".sf-toolbar"],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
+      "label": "Servicespot - two columns",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-servicespot-tc",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
+      "removeSelectors": [".sf-toolbar"]
     },
     {
-      "label": "Plakat",
-      "url": "https://admin.kff-os2display.docker/screen/public/96527870",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": ".kk-eventplakat__subslide",
-      "delay": 2000,
-      "hideSelectors": [],
+      "label": "Servicespot - two rows",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-servicespot-tr",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
       "removeSelectors": [".sf-toolbar"],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
+      "viewports": [
+        {
+          "label": "portrait",
+          "width": 1080,
+          "height": 1920
+        }
+      ]
     },
     {
-      "label": "Servicespot",
-      "url": "https://admin.kff-os2display.docker/screen/public/a7fb5e7a",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": ".kk-color-messages",
-      "delay": 2000,
-      "hideSelectors": [],
+      "label": "Plakat - full screen",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-plakat-fs",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
       "removeSelectors": [".sf-toolbar"],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
+      "viewports": [
+        {
+          "label": "landscape",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "label": "portrait",
+          "width": 1080,
+          "height": 1920
+        }
+      ]
     },
     {
-      "label": "Horizontal split plakat service",
-      "url": "https://admin.kff-os2display.docker/screen/public/35725310",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": ".kk-color-messages",
-      "delay": 2000,
-      "hideSelectors": [],
-      "removeSelectors": [".sf-toolbar"],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
+      "label": "Plakat - two columns",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-plakat-tc",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
+      "removeSelectors": [".sf-toolbar"]
     },
     {
-      "label": "Horizontal split events",
-      "url": "https://admin.kff-os2display.docker/screen/public/ec2da2be",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": ".kk-events",
-      "delay": 2500,
-      "hideSelectors": [],
+      "label": "Plakat - two rows",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-plakat-tr",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
       "removeSelectors": [".sf-toolbar"],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
+      "viewports": [
+        {
+          "label": "portrait",
+          "width": 1080,
+          "height": 1920
+        }
+      ]
     },
     {
-      "label": "Vertical split service plakat",
-      "url": "https://admin.kff-os2display.docker/screen/public/704424dd",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": ".kk-color-messages",
-      "delay": 2500,
-      "hideSelectors": [],
+      "label": "Arrangementer - full screen",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-arrangementer-fs",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
       "removeSelectors": [".sf-toolbar"],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
+      "viewports": [
+        {
+          "label": "landscape",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "label": "portrait",
+          "width": 1080,
+          "height": 1920
+        }
+      ]
+    },
+    {
+      "label": "Arrangementer - two columns",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-arrangementer-tc",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
+      "removeSelectors": [".sf-toolbar"]
+    },
+    {
+      "label": "Arrangementer - two rows",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-arrangementer-tr",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
+      "removeSelectors": [".sf-toolbar"],
+      "viewports": [
+        {
+          "label": "portrait",
+          "width": 1080,
+          "height": 1920
+        }
+      ]
+    },
+    {
+      "label": "Karrussel - full screen",
+      "url": "https://admin.kff-os2display.docker/screen/public/sc-carousel-fs",
+      "readyEvent": "Slide has",
+      "selectors": ["viewport"],
+      "delay": 3000,
+      "removeSelectors": [".sf-toolbar"],
+      "viewports": [
+        {
+          "label": "landscape",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "label": "portrait",
+          "width": 1080,
+          "height": 1920
+        }
+      ]
     }
   ],
   "paths": {

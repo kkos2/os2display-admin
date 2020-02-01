@@ -2,6 +2,7 @@ services:
   _defaults:
     autowire: true
 
+  # Helpers
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\MultisiteCrawler:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\MultisiteHelper:
   Kkos2\KkOs2DisplayIntegrationBundle\ExternalData\DataFetcher:
@@ -35,3 +36,12 @@ services:
   Kkos2\KkOs2DisplayIntegrationBundle\Cron\TwoThreeVideoSisCron:
     tags:
       - { name: kernel.event_subscriber }
+
+  # Baseline
+  Kkos2\KkOs2DisplayIntegrationBundle\Test\Baseline\Baseline:
+
+  # Commands
+  Kkos2\KkOs2DisplayIntegrationBundle\Command\SetupBaselineChannelsCommand:
+    tags:
+      - { name: console.command }
+    public: false
