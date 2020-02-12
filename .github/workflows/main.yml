@@ -14,10 +14,13 @@ jobs:
           repository: kkos2/os2display-docker
           ref: kk-master
 
-      - name: Spin up environment
-        run: |
-          cd os2display-docker
-          make clone-admin
-          make reset-dev
+      - name: Look around
+        run: ls
+
+#      - name: Spin up environment
+#        run: |
+#          cd os2display-docker
+#          make clone-admin
+#          make reset-dev
 
 
