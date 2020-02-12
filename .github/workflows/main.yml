@@ -16,6 +16,8 @@ jobs:
 
       - name: Spin up environment
         run: |
+          git clone --branch=kk-develop git@github.com:kkos2/os2display-admin.git development/admin
+
           make clone-admin
           make reset-dev
           echo 'TADA'
