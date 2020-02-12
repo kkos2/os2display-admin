@@ -14,13 +14,10 @@ jobs:
           repository: kkos2/os2display-docker
           ref: kk-master
 
-      - name: Look around
-        run: ls
-
-#      - name: Spin up environment
-#        run: |
-#          cd os2display-docker
-#          make clone-admin
-#          make reset-dev
+      - name: Spin up environment
+        run: |
+          make clone-admin
+          make reset-dev
+          echo 'TADA'
 
 
