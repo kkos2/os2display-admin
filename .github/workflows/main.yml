@@ -19,6 +19,7 @@ jobs:
         with:
           version: '275.0.0'
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
+
       - name: Set Credential Helper for Docker
           run: gcloud auth configure-docker --quiet
 
