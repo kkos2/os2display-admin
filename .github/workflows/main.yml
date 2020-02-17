@@ -27,6 +27,7 @@ jobs:
         run: |
           make clone-admin
           make ci-init
+          cat docker-compose.yml
           echo 'TADA'
 
 
