@@ -14,6 +14,11 @@ jobs:
           repository: kkos2/os2display-docker
           ref: feature/osd-92-actions
 
+      - name: Setup Google Cloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '275.0.0'
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
       - name: Spin up environment
         run: |
