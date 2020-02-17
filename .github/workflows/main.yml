@@ -26,8 +26,7 @@ jobs:
       - name: Spin up environment
         run: |
           make clone-admin
-          docker-compose -f docker-compose.common.yml -f docker-compose.development.yml config > docker-compose.yml
-          docker-compose up -d
+          make ci-init
           echo 'TADA'
 
 
