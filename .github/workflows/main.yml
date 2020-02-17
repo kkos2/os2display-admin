@@ -31,7 +31,7 @@ jobs:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: |
           make ci-init
-          docker-compose exec admin-php bash -cT "wait-for-it"
+          docker-compose exec -T admin-php bash -c "wait-for-it"
           echo 'TADA'
 
 
