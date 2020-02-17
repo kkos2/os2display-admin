@@ -30,8 +30,7 @@ jobs:
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: |
-          make ci-init
-          docker-compose exec -T admin-php bash -c "wait-for-it"
+          make reset-dev
           echo 'TADA'
 
 
