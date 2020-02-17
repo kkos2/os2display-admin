@@ -23,13 +23,15 @@ jobs:
       - name: Set Credential Helper for Docker
         run: gcloud auth configure-docker --quiet
 
+      - name: Clone admin
+        run: make clone-admin
+
       - name: Spin up environment
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: |
-          make clone-admin
           make ci-init
-          docker-compose exec admin-php bash -c "wait-for-it"
+          docker-compose exec admin-php bash -cT "wait-for-it"
           echo 'TADA'
 
 
