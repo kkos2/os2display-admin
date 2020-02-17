@@ -24,11 +24,9 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Spin up environment
-        env:
-          COMPOSE_INTERACTIVE_NO_CLI: 1
         run: |
           make clone-admin
-          make ci-init
+          docker-compose up -d
           echo 'TADA'
 
 
