@@ -27,7 +27,7 @@ jobs:
         run: |
           make clone-admin
           make ci-init
-          cat docker-compose.yml
+          docker-compose exec admin-php bash -c "wait-for-it"
           echo 'TADA'
 
 
