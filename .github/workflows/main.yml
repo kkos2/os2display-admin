@@ -23,13 +23,11 @@ jobs:
       - name: Set Credential Helper for Docker
         run: gcloud auth configure-docker --quiet
 
-      - name: Clone admin
-        run: make clone-admin
-
       - name: Spin up environment
         env:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: |
+          make clone-admin
           make reset-dev
           echo 'TADA'
 
