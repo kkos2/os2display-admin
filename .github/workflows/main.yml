@@ -28,9 +28,7 @@ jobs:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: |
           make clone-admin
-          docker-compose -f docker-compose.common.yml -f docker-compose.development.yml config > docker-compose.yml
-          docker-compose up -d
-          docker-compose exec -T admin-php bash -c "ls -lah web/bundles"
+          make reset-dev
           echo 'TADA'
 
 
