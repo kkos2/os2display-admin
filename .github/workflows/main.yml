@@ -28,6 +28,8 @@ jobs:
           COMPOSE_INTERACTIVE_NO_CLI: 1
         run: |
           make clone-admin
+          pwd
+          ls development/admin
           make ci-init
           echo 'TADA'
 
