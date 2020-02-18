@@ -31,11 +31,6 @@ jobs:
           docker-compose -f docker-compose.common.yml -f docker-compose.development.yml config > docker-compose.yml
           docker-compose up -d
           docker-compose exec -T admin-php bash -c "ls -lah web/bundles"
-#          sleep 5
-#          docker-compose exec -T admin-php bash -c "export TERM=xterm && wait-for-it -t 60 admin-db:3306 && wait-for-it -t 60 elasticsearch:9200"
-#          sleep 5
-#          docker-compose exec -T admin-php bash -c "export TERM=xterm /opt/development/scripts/_docker-init-environment.sh"
-
           echo 'TADA'
 
 
