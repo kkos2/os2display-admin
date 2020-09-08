@@ -152,7 +152,7 @@ index 9a3f7f4..43267b7 100644
  ROLE_GROUP_ADMIN: Gruppeadministrator
  ROLE_USER_ADMIN: Brugeradministrator
 diff --git a/Services/EntityService.php b/Services/EntityService.php
-index 0e2b418..a6a4a02 100644
+index 0e2b418..b4f7c07 100644
 --- a/Services/EntityService.php
 +++ b/Services/EntityService.php
 @@ -6,8 +6,17 @@
@@ -207,7 +207,7 @@ index 0e2b418..a6a4a02 100644
    }
  
    /**
-@@ -69,4 +96,93 @@ class EntityService {
+@@ -69,4 +96,91 @@ class EntityService {
  
      return $errors;
    }
