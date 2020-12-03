@@ -53,32 +53,62 @@ class EventfeedHelper {
   }
 
   /**
-   * @param string $url Url to feed
-   * @param integer $numItems Number of items to return from the feed
-   * @param array $queryData
+   * Fetch data from feeds.
    *
-   * @return array|mixed
+   * Feeds are provieded via the "datafeed_url" option on the slide, it contains
+   * zero or more feed urls separated by newlines.
+   *
+   * @return array
+   *   An array of json objects.
    */
   public function fetchData() {
-    $url = $this->slide->getOption('datafeed_url', '');
-    if (!$this->validateFeedUrl()) {
-      throw new \Exception("$url is not a valid {$this->slideType} url.");
+    $datafeed_urls = $this->slide->getOption('datafeed_url', '');
+    if (empty($datafeed_urls)) {
+      return [];
     }
-    $query = [];
-    $filterDisplay = $this->slide->getOption('datafeed_display', '');
-    if (!empty($filterDisplay)) {
-      $query = [
-        'display' => $filterDisplay,
-      ];
+
+    // Split the feeds by newline.
+    $urls = explode("\n", $datafeed_urls);
+    // Get rid of any whitespace surrounding the feed (eg.\r).
+    $urls = array_map("trim", $urls);
+    // Ensure we don't get any empty feeds, array_filter defaults to removing
+    // empty() entries.
+    $urls = array_filter($urls);
+
+    // Go trough reach feed, fetch the contents and merge into a common
+    // response.
+    $feed_data = [];
+    foreach ($urls as $feed_url) {
+      if (!$this->validateFeedUrl($feed_url)) {
+        // Report invalid feed url and continue to the next feed.
+        $this->logger->error("$feed_url is not a valid {$this->slideType} url.");
+        continue;
+      }
+      $query = [];
+      // Only fetch feed items for the specified display (if specified).
+      $filterDisplay = $this->slide->getOption('datafeed_display', '');
+      if (!empty($filterDisplay)) {
+        $query = [
+          'display' => $filterDisplay,
+        ];
+      }
+      $feed_data = array_merge($feed_data, JsonFetcher::fetch($feed_url, $query));
     }
-    return JsonFetcher::fetch($url, $query);
+
+    return $feed_data;
   }
 
+  /**
+   * Split slide data into slices that fits with the requested total items.
+   */
   public function sliceData($data) {
     return array_slice($data, 0, $this->slide->getOption('sis_total_items', 12));
   }
 
-  private function validateFeedUrl() {
+  /**
+   * Verify that the url we've been passed is for the correct slide type.
+   */
+  private function validateFeedUrl($url) {
     $endsWith = '';
     switch ($this->slideType) {
       case 'kk-events':
@@ -91,7 +121,7 @@ class EventfeedHelper {
     if (empty($endsWith)) {
       return FALSE;
     }
-    return preg_match("@{$endsWith}[?#]?@", $this->slide->getOption('datafeed_url'));
+    return preg_match("@{$endsWith}[?#]?@", $url);
   }
 
   /**
