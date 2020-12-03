@@ -67,11 +67,13 @@ class EventfeedHelper {
       return [];
     }
 
-    // Assume we get multiple feeds.
-    $urls = array_map(
-      "trim",
-      explode("\n", $datafeed_urls)
-    );
+    // Split the feeds by newline.
+    $urls = explode("\n", $datafeed_urls);
+    // Get rid of any whitespace surrounding the feed (eg.\r).
+    $urls = array_map("trim", $urls);
+    // Ensure we don't get any empty feeds, array_filter defaults to removing
+    // empty() entries.
+    $urls = array_filter($urls);
 
     // Go trough reach feed, fetch the contents and merge into a common
     // response.
