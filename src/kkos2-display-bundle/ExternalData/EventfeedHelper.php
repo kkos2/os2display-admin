@@ -78,7 +78,9 @@ class EventfeedHelper {
     $feed_data = [];
     foreach ($urls as $feed_url) {
       if (!$this->validateFeedUrl($feed_url)) {
-        throw new \Exception("$feed_url is not a valid {$this->slideType} url.");
+        // Report invalid feed url and continue to the next feed.
+        $this->logger->error("$feed_url is not a valid {$this->slideType} url.");
+        continue;
       }
       $query = [];
       // Only fetch feed items for the specified display (if specified).
