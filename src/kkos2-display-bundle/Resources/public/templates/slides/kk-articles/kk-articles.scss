@@ -55,11 +55,12 @@
 
   .kk-ratio-horizontal & {
     margin-top: 2em;
+    padding-left: 3vw;
     @include scalableFont(12, 28);
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "image freetext"
-      "image text-wrap";
+      "freetext image"
+      "text-wrap image";
     margin-right: 2em;
     .kk-articles__freetext {
       margin-top: 3em;
