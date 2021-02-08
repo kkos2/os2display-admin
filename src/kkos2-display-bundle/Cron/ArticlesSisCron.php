@@ -10,7 +10,17 @@ use Reload\Os2DisplaySlideTools\Events\SlidesInSlideEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class BookByenSisCron.
+ * Class ArticlesSisCron.
+ *
+ * This class implements scraping of KK multisite articles.
+ *
+ * The scraper expects the slide to have been configured with the url to a
+ * "Aggregation" node: a "Tabel" node instance that contains a list of urls
+ * that all points to "Artikel" node instances.
+ *
+ * The scraper is very picky on purpose, so if the links does not seem to be
+ * valid, or a link does not point to something it can parse as an article, it
+ * will be skipped, if possible with a warning.
  */
 class ArticlesSisCron implements EventSubscriberInterface {
   use DateTrait;
@@ -66,6 +76,8 @@ class ArticlesSisCron implements EventSubscriberInterface {
     $articleLinks = [];
 
     try {
+      // Seek out links in the aggreagation node. Anything that does not look
+      // like a link will be ignored.
       $articleLinks = $this->fetchArticleLinks($url);
     }
     catch (\Exception $e) {
@@ -78,7 +90,7 @@ class ArticlesSisCron implements EventSubscriberInterface {
     $subslideData = [];
 
     foreach ($articleLinks as $articleLink) {
-      // TODO: skip if data is invalid.
+      // Fetch the actual article if it can be parsed.
       $fetchedArticle = $this->fetchArticle($articleLink);
 
       if ($fetchedArticle) {
@@ -102,6 +114,10 @@ class ArticlesSisCron implements EventSubscriberInterface {
 
   /**
    * Fetch an article.
+   *
+   * @return array|bool
+   *   Returns the an (title, manchet, image) array on success or FALSE if the
+   *   article could not be parsed.
    */
   private function fetchArticle($articleLink) {
     $html = $this->fetcher->getBody($articleLink);
@@ -126,6 +142,9 @@ class ArticlesSisCron implements EventSubscriberInterface {
 
   /**
    * Get a list of article links from a table node.
+   *
+   * @return array
+   *   (possible empty) list of valid article links.
    */
   private function fetchArticleLinks($url) {
     $html = $this->fetcher->getBody($url);
