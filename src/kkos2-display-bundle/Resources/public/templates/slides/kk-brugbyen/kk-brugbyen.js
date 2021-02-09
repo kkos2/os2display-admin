@@ -1,6 +1,12 @@
 // Register the function, if it does not already exist.
-if (!window.slideFunctions["kk-eventplakat"]) {
-  window.slideFunctions["kk-eventplakat"] = {
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+if (!window.slideFunctions["kk-brugbyen"]) {
+  window.slideFunctions["kk-brugbyen"] = {
     /**
      * Setup the slide for rendering.
      * @param scope
@@ -30,6 +36,7 @@ if (!window.slideFunctions["kk-eventplakat"]) {
       scope.theStyle = {
         bgcolor: slide.options.bgcolor,
       };
+      scope.logoVersion = getRandomInt(1, 3);
 
       scope.ratio = window.kkSlideRatio.getRatio();
     },

@@ -1,0 +1,78 @@
+<div
+  class="kk-ratio-{{ratio}} font-kbh"
+  lang="da-DK"
+  data-ng-style="{'width': theStyle.width, 'height': theStyle.height, 'background-color': ikSlide.options.bgcolor}"
+>
+  <div
+    class="kk-eventplakat__subslide"
+    ng-repeat="event in ikSlide.data.subslides track by $index"
+    data-ng-show="ikSlide.data.currentSlide === $index"
+  >
+    <div class="kk-brugbyen kk-brugbyen--ratio-{{ratio}} ">
+      <div class="kk-brugbyen-top">
+        <div
+          style="grid-area: kk-brugbyen-place"
+          class="kk-brugbyen-top-place font-kbhtekst"
+        >
+          <p>{{ event.institution }}</p>
+          <img
+            class="kk-brugbyen-logo"
+            data-ng-src="{{ikSlide.kffLogo}}"
+            alt="Logo"
+          />
+        </div>
+        <h1 style="grid-area: kk-brugbyen-titel" class="kk-brugbyen-top-title">
+          {{event.title}}
+        </h1>
+        <div
+          class="kk-brugbyen-top-image"
+          style="
+        grid-area: kk-brugbyen-image;
+        background-image: url({{event.image}});
+      "
+        />
+      </div>
+
+      <div class="kk-brugbyen-bottom">
+        <div class="kk-brugbyen-bottom-left font-kbhtekst">
+          <div class="kk-brugbyen-date">
+            <p>{{event.date}}</p>
+            <p>Kl {{event.time}}</p>
+          </div>
+          <p class="kk-brugbyen-check">
+            Tjek
+            <svg
+              width="30"
+              height="38"
+              viewBox="0 0 60 38"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style="margin-left: 0.35em"
+            >
+              <path
+                d="M59.9998 19C59.9998 18.5372 59.7199 17.9227 59.4359 17.6245L43.4362 0.624226C42.6892 -0.148074 41.479 -0.237577 40.6081 0.546223C39.8295 1.24692 39.8101 2.61351 40.5301 3.37441L53.3736 16.9997H2C0.8954 16.9997 0 17.8951 0 18.9997C0 20.1043 0.8954 20.9997 2 20.9997H53.3736L40.5301 34.625C39.8102 35.3858 39.8613 36.7187 40.6081 37.453C41.3966 38.2282 42.7006 38.1592 43.4362 37.375L59.4359 20.3748C59.906 19.9137 59.9919 19.4696 59.9998 19Z"
+                fill="black"
+              />
+            </svg>
+          </p>
+        </div>
+        <div class="kk-brugbyen-bottom-right">
+          <div>
+            <div ng-if="logoVersion == 1">
+              <h2>Brugbyen.nu</h2>
+            </div>
+            <div ng-if="logoVersion == 2">
+              <h2>Brug</h2>
+              <h2>byen.nu</h2>
+            </div>
+            <div ng-if="logoVersion == 3">
+              <h2>Brug</h2>
+              <h2>byen</h2>
+              <h2>.nu</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
