@@ -8,7 +8,7 @@
   color: black;
 
   p {
-    @include scalableFont(25, 30);
+    font-size: 1.5vmax;
     line-height: 1.5em;
     font-weight: 600;
     margin: 0px;
@@ -30,17 +30,17 @@ TOP
 
 .kk-brugbyen-logo {
   width: 100%;
-  max-width: 7em;
+  max-width: 7vmax;
 }
 
 .kk-brugbyen-top-title {
-  @include scalableFont(60, 80);
+  font-size: 4vmax;
   margin-bottom: 0px;
 }
 
 .kk-brugbyen-top-image {
-  background-color: grey;
-  transform: translateX(5.2vw);
+  background-color: white;
+  transform: translateX(5vw);
   background-position: center center;
   background-size: cover;
 }
@@ -73,7 +73,7 @@ BOTTOM
 
 .kk-brugbyen-bottom-right {
   h2 {
-    @include scalableFont(60, 75);
+    font-size: 4vmax;
     line-height: 1.5em;
     text-align: end;
     text-decoration: underline;
