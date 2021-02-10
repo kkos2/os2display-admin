@@ -1,0 +1,50 @@
+{
+  "id": "kk-brugbyen",
+  "type": "slide",
+  "name": "Brug Byen",
+  "icon": "kk-brugbyen.png",
+  "paths": {
+    "live": "kk-brugbyen-live.html",
+    "edit": "kk-brugbyen-edit.html",
+    "preview": "kk-brugbyen-edit.html",
+    "css": "kk-brugbyen.min.css",
+    "js": "bundles/kkos2displayintegration/dist/js/kk-brugbyen.min.js"
+  },
+  "slide_type": "slides-in-slide",
+  "media_type": "image",
+  "script_id": "kk-brugbyen",
+  "orientation": "landscape",
+  "ideal_dimensions": {
+    "width": "1920",
+    "height": "1080"
+  },
+  "empty_options": {
+    "bgcolor": "#78e792",
+    "logopos": {
+      "top": "auto",
+      "bottom": "0",
+      "left": "auto",
+      "right": "0"
+    },
+    "logosize": "10%",
+
+    "sis_cron_subscriber": "kk_brugbyen_sis_cron",
+    "sis_subslide_duration": 10,
+    "sis_total_items": 12,
+    "sis_items_pr_slide": 1,
+
+    "datafeed_url": "",
+
+    "sis_data_ttl_minutes": 5
+  },
+  "tools": [
+    {
+      "name": "Datafeed",
+      "id": "feed-url-editor"
+    },
+    {
+      "name": "Slides in slides",
+      "id": "slides-in-slide-config-editor"
+    }
+  ]
+}

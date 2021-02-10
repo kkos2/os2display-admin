@@ -17,6 +17,7 @@ class JsonFetcher
 
       $response = $client->request('GET', $url, [
         'query' => $params,
+        'User-Agent' => 'os2display-scraper',
         'headers' => [
           'Accept' => 'application/json'
         ]

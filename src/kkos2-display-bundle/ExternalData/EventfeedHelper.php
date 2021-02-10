@@ -87,11 +87,15 @@ class EventfeedHelper {
       $query = [];
       // Only fetch feed items for the specified display (if specified).
       $filterDisplay = $this->slide->getOption('datafeed_display', '');
-      if (!empty($filterDisplay)) {
+      if (!empty($filterDisplay) && is_string($filterDisplay)) {
         $query = [
           'display' => $filterDisplay,
         ];
       }
+      if ($this->slideType !== "kk-brugbyen") {
+        return [];
+      }
+      $this->logger->info("Fetching Event feed " . print_r($feed_url, TRUE) . " with query " . print_r($query, TRUE));
       $feed_data = array_merge($feed_data, JsonFetcher::fetch($feed_url, $query));
     }
 
@@ -115,6 +119,9 @@ class EventfeedHelper {
         $endsWith = 'os2display-events';
         break;
       case 'kk-eventplakat':
+        $endsWith = 'os2display-posters';
+        break;
+      case 'kk-brugbyen':
         $endsWith = 'os2display-posters';
         break;
     }

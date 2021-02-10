@@ -35,3 +35,7 @@ services:
   Kkos2\KkOs2DisplayIntegrationBundle\Cron\TwoThreeVideoSisCron:
     tags:
       - { name: kernel.event_subscriber }
+
+  Kkos2\KkOs2DisplayIntegrationBundle\Cron\BrugByenSisCron:
+    tags:
+      - { name: kernel.event_subscriber }

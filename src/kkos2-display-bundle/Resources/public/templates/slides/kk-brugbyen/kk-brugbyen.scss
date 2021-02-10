@@ -1,0 +1,118 @@
+@import "../../../assets/scss/kff";
+
+.kk-brugbyen {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  height: 100%;
+  padding: 5vw;
+  color: black;
+
+  p {
+    font-size: 1.5vmax;
+    line-height: 1.5em;
+    font-weight: 600;
+    margin: 0px;
+  }
+}
+
+/** =========================================
+TOP
+=========================================*/
+
+.kk-brugbyen-top {
+  display: grid;
+}
+
+.kk-brugbyen-top-place {
+  display: flex;
+  justify-content: space-between;
+}
+
+.kk-brugbyen-logo {
+  width: 100%;
+  max-width: 7vmax;
+}
+
+.kk-brugbyen-top-title {
+  font-size: 4vmax;
+  margin-bottom: 0px;
+}
+
+.kk-brugbyen-top-image {
+  background-color: white;
+  transform: translateX(5vw);
+  background-position: center center;
+  background-size: cover;
+}
+
+/** =========================================
+BOTTOM
+=========================================*/
+
+.kk-brugbyen-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.kk-brugbyen-bottom-left {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .kk-brugbyen-date {
+    margin: 2em 0em;
+  }
+
+  .kk-brugbyen-check {
+    margin-top: 2em;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.kk-brugbyen-bottom-right {
+  h2 {
+    font-size: 4vmax;
+    line-height: 1.5em;
+    text-align: end;
+    text-decoration: underline;
+    margin: 0;
+  }
+}
+
+/** =========================================
+RATIO - Horizontal or Vertical
+=========================================*/
+
+.kk-brugbyen--ratio-horizontal {
+  .kk-brugbyen-top {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "kk-brugbyen-place kk-brugbyen-image"
+      "kk-brugbyen-titel kk-brugbyen-image";
+  }
+
+  .kk-brugbyen-bottom-left {
+    justify-content: flex-end;
+  }
+}
+
+.kk-brugbyen--ratio-vertical {
+  .kk-brugbyen-top {
+    grid-template-rows: auto 1.5fr 1fr;
+    grid-template-areas:
+      "kk-brugbyen-place"
+      "kk-brugbyen-image"
+      "kk-brugbyen-titel";
+  }
+
+  .kk-brugbyen-bottom-left {
+    justify-content: space-between;
+  }
+
+  .kk-brugbyen-top-place {
+    padding-bottom: 4em;
+  }
+}
