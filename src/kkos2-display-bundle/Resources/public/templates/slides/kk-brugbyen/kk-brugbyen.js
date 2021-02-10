@@ -49,7 +49,7 @@ if (!window.slideFunctions["kk-brugbyen"]) {
      * @param region
      *   The region to call when the slide has been executed.
      */
-    run: function runKkPlakatSlide(slide, region) {
+    run: function (slide, region) {
       window.slidesInSlides.run(slide, region);
     },
   };

@@ -118,13 +118,13 @@ class EventfeedHelper {
       case 'kk-events':
         $endsWith = 'os2display-events';
         break;
-        case 'kk-eventplakat':
-          $endsWith = 'os2display-posters';
-          break;
-        case 'kk-brugbyen':
-          $endsWith = 'os2display-posters';
-          break;
-          }
+      case 'kk-eventplakat':
+        $endsWith = 'os2display-posters';
+        break;
+      case 'kk-brugbyen':
+        $endsWith = 'os2display-posters';
+        break;
+    }
     if (empty($endsWith)) {
       return FALSE;
     }
