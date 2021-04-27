@@ -85,12 +85,13 @@ class BrugByenSisCron implements EventSubscriberInterface {
 
     $event = [
       'title' => html_entity_decode($data['title']),
+      'teaser' => html_entity_decode($data['field_teaser']),
       // When "unset" field_display_institution will be an empty array. So, only
       // use it when it is a string.
       'institution' => is_string($data['field_display_institution']) ? html_entity_decode($data['field_display_institution']) : '',
       'image' => $this->eventfeedHelper->processImage($data['billede']),
       'date' => $this->eventfeedHelper->processDate($data['startdate']),
-      'time' => current($data['time']),
+      'time' => str_replace(":", ".", current($data['time'])),
     ];
 
     return array_map('trim', $event);
