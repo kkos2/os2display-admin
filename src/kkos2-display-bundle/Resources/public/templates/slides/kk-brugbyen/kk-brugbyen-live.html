@@ -12,18 +12,21 @@
       <div class="kk-brugbyen-top">
         <div
           style="grid-area: kk-brugbyen-place"
-          class="kk-brugbyen-top-place font-kbhtekst"
+          class="kk-brugbyen-top-place font-kbh"
         >
-          <p>{{ event.institution }}</p>
+          <p style="font-weight: 500;">{{ event.institution }}</p>
           <img
             class="kk-brugbyen-logo"
             data-ng-src="{{ikSlide.kffLogo}}"
             alt="Logo"
           />
         </div>
-        <h1 style="grid-area: kk-brugbyen-titel" class="kk-brugbyen-top-title">
-          {{event.title}}
-        </h1>
+        <div style="grid-area: kk-brugbyen-titel" >
+          <h1  class="kk-brugbyen-top-title">
+            {{event.title}}
+          </h1>
+          <p style="font-weight: 500; font-size: 2vmax;">{{event.teaser}}</p>
+        </div>
         <div
           class="kk-brugbyen-top-image"
           style="
@@ -34,16 +37,16 @@
       </div>
 
       <div class="kk-brugbyen-bottom">
-        <div class="kk-brugbyen-bottom-left font-kbhtekst">
+        <div class="kk-brugbyen-bottom-left font-kbh">
           <div class="kk-brugbyen-date">
-            <p>{{event.date}}</p>
-            <p>Kl {{event.time}}</p>
+            <p style="font-weight: 500">{{event.date}}</p>
+            <p style="font-weight: 500">Kl. {{event.time}}</p>
           </div>
-          <p class="kk-brugbyen-check">
+          <p class="kk-brugbyen-check" style="font-weight: 500">
             Tjek
             <svg
               width="30"
-              height="38"
+              height="30"
               viewBox="0 0 60 38"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
