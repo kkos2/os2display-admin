@@ -92,11 +92,18 @@ class EventfeedHelper {
           'display' => $filterDisplay,
         ];
       }
-      if ($this->slideType !== "kk-brugbyen") {
-        return [];
-      }
       $this->logger->info("Fetching Event feed " . print_r($feed_url, TRUE) . " with query " . print_r($query, TRUE));
-      $feed_data = array_merge($feed_data, JsonFetcher::fetch($feed_url, $query));
+      
+      try {
+        $res = JsonFetcher::fetch($feed_url, $query);
+      } catch (\Exception $e) {
+        $this->logger->error($e->getMessage());
+        throw $e;
+      }
+
+      $length = count($res);
+      $this->logger->info("Fetched $length events ");
+      $feed_data = array_merge($feed_data, $res);
     }
 
     return $feed_data;

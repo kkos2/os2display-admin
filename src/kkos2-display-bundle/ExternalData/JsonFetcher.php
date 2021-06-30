@@ -20,7 +20,8 @@ class JsonFetcher
         'User-Agent' => 'os2display-scraper',
         'headers' => [
           'Accept' => 'application/json'
-        ]
+        ],
+        'allow_redirects' => true
       ]);
 
       $body = $response->getBody();
