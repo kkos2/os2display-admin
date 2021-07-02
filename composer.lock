@@ -3828,16 +3828,16 @@
         },
         {
             "name": "reload/os2display-slide-tools",
-            "version": "v1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reload/os2display-slide-tools.git",
-                "reference": "014b8ebb20e274b347dc3e47361f0b081aaba41e"
+                "reference": "f6bb62fd77e98e92a3ca6aef045eed60466a52f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reload/os2display-slide-tools/zipball/014b8ebb20e274b347dc3e47361f0b081aaba41e",
-                "reference": "014b8ebb20e274b347dc3e47361f0b081aaba41e",
+                "url": "https://api.github.com/repos/reload/os2display-slide-tools/zipball/f6bb62fd77e98e92a3ca6aef045eed60466a52f4",
+                "reference": "f6bb62fd77e98e92a3ca6aef045eed60466a52f4",
                 "shasum": ""
             },
             "type": "library",
@@ -3848,7 +3848,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Reusable tools for working with slides in https://github.com/os2display",
-            "time": "2020-03-05T17:48:54+00:00"
+            "time": "2021-07-02T09:47:48+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -4077,6 +4077,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
+            "abandoned": "https://github.com/fabpot/local-php-security-checker",
             "time": "2019-06-08T06:46:26+00:00"
         },
         {
