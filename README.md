@@ -6,7 +6,7 @@ Os2Display admin for Københavns Kommune
 This bundle contains slides specific to Københavns Kommune. [More documentation](src/kkos2-display-bundle/README.md) can be found there.
 
 ## Tagging for a release
-See the documentation in [kkos2/os2display-infrastructure](https://github.com/kkos2/os2display-infrastructure/blob/master/documentation/building-a-release.md) for how to create releases.
+Each pushed commit triggers a google cloud build (see the [cloudbuild](./cloudbuild)) directory which builds a set of container images, pushes them to the shared container registry, and tags the commit with the build number for later deployment. A build can subsequently be deployed via the [os2display-k8s-environments](https://github.com/kkos2/os2display-k8s-environments) repository.
 
 ## Visual regression test with backstop.js
 For now, this will need to be run locally on your machine. It will be moved to a container eventually.
